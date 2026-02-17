@@ -97,11 +97,15 @@ ot.toastEl = function (el, options = {}) {
   let toast;
 
   if (el instanceof HTMLTemplateElement) {
-    toast = el.content.firstElementChild.cloneNode(true);
+    toast = el.content.firstElementChild?.cloneNode(true);
   } else if (typeof el === 'string') {
-    toast = document.querySelector(el).cloneNode(true);
-  } else {
+    toast = document.querySelector(el)?.cloneNode(true);
+  } else if (el) {
     toast = el.cloneNode(true);
+  }
+
+  if (!toast) {
+    return;
   }
 
   toast.removeAttribute('id');
